@@ -145,7 +145,7 @@ sliderBtn.addEventListener('click', function () {
   createSlider()
 })
 
-
+// enter btn
 document.getElementById("search").addEventListener("keypress",function(event){
   
   if(event.key === "Enter"){
