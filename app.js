@@ -13,16 +13,11 @@ let sliders = [];
 // to create your own api key
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
-//////
-  document.getElementById("search").addEventListener("keypress",function(event){
-           if(event.key === "Enter"){
-             document.getElementById("search-btn").click()
-           }
-  })
-//////
+
+
 // show images 
 const showImages = (images) => {
-  console.log(images)
+  
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -30,14 +25,16 @@ const showImages = (images) => {
   images.forEach(image => {
     let div = document.createElement('div');
     div.id = "yo"
-    div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+    div.className = 'col-lg-3 col-md-4 col-xs-6  img-item mb-2';
+    div.innerHTML = ` <img id="yo1" class="img-fluid soo img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
+    togleSpinner(false)
   })
-
+  
 }
 
 const getImages = (query) => {
+  togleSpinner(true)
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -56,18 +53,11 @@ const selectItem = (event, img) => {
    }
  
     else {
-   let yo =  confirm('Hey, Already added !')
-   if(yo===true){
-    for (const s of document.getElementsByClassName("img-item ")) {
-       s.style.display = "none";
-      
-      //  let yo = s.length;
-      // console.log(yo)
-      
-    }
+     alert('Hey, Already added !')
+ 
+   
    }
-    
-   }
+   
 }
 var timer
 const createSlider = () => {
@@ -90,24 +80,29 @@ const createSlider = () => {
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = document.getElementById('doration').value || 1000;
-  // if(duration < 0){
-  //  let neww = duration
-  //  console.log(neww)
-  // }
-  sliders.forEach(slide => {
-    let item = document.createElement('div')
-    item.className = "slider-item";
-    item.innerHTML = `<img class="w-100"
-    src="${slide}"
-    alt="">`;
-    sliderContainer.appendChild(item)
-  })
-  changeSlide(0)
-  timer = setInterval(function () {
-    slideIndex++;
-   
-   changeSlide(slideIndex);
-  },duration);
+//  negative value time canot be set 
+  if(duration < 0){
+   alert("Timeing canot be negative...!! please enter your posative value !!")
+  }
+  else{
+    sliders.forEach(slide => {
+      let item = document.createElement('div')
+      item.className = "slider-item";
+      item.innerHTML = `<img class="w-100"
+      src="${slide}"
+      alt="" >`;
+      sliderContainer.appendChild(item)
+    })
+  
+    changeSlide(0)
+    timer = setInterval(function () {
+      slideIndex++;
+  
+     changeSlide(slideIndex);
+    },duration);
+
+  }
+ 
   
  
 }
@@ -150,4 +145,23 @@ sliderBtn.addEventListener('click', function () {
   createSlider()
 })
 
-// const doo = `https://pixabay.com/api/?key=15674931-a9d714b6e9d654524df198e00&q=summer&image_type=photo&pretty=true`
+
+document.getElementById("search").addEventListener("keypress",function(event){
+  
+  if(event.key === "Enter"){
+    document.getElementById("search-btn").click()
+  }
+})
+
+
+  const togleSpinner = (show)=>{
+  const spinner = document.getElementById("spinner-added");
+  if(show){
+    spinner.classList.remove("d-none")
+  }
+  if(show){
+    spinner.classList.add("d-none")
+  }
+
+}
+
