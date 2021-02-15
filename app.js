@@ -7,20 +7,20 @@ const sliderContainer = document.getElementById('sliders');
 // selected image
 let sliders = [];
 
-// If this key doesn't work
+
 // Find the name in the url and go to their website
 // to create your own api key
-const KEY = '15674931-a9d714b6e9d654524df198e00&q';
+const key = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images
 const showImages = (images) => {
   imagesArea.style.display = 'block';
-  gallery.innerHTML = '';
+   gallery.innerHTML = '';
   // show gallery title
   if (images.length === 0) {
-    let div = document.createElement('div');
-    div.innerHTML = `<h1 class="error-massage mt-5">!! SORRY 😞😞 There is no pioture in this name from our Webside !!</h1>`;
-    gallery.appendChild(div);
+    let errorDiv = document.createElement('div');
+    errorDiv.innerHTML = `<h1 class="d-block error-massage mt-5">!! SORRY 😞😞 There is no picture in this name from our Webside !!</h1>`;
+    gallery.appendChild(errorDiv);
   } else {
     galleryHeader.style.display = 'flex';
     images.forEach((image) => {
@@ -29,20 +29,22 @@ const showImages = (images) => {
       div.className = 'col-lg-3 col-md-4 col-xs-6  img-item mb-2';
       div.innerHTML = ` <img  class="img-fluid soo img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
       gallery.appendChild(div);
-      togleSpinner(false)
+     togleSpinner(false)
+     
     });
   }
 };
 
 const getImages = (query) => {
-  togleSpinner(true)
-
-  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+  
+   const url = `https://pixabay.com/api/?key=${key}=${query}&image_type=photo&pretty=true`
+   togleSpinner(true)
+  fetch(url)
     .then((response) => response.json())
     .then((data) => {
       showImages(data.hits);
     })
-    .catch((err) => somethingWong('somethingWong'));
+    .catch(err => console.log(err))
 };
 
 let slideIndex = 0;
@@ -138,11 +140,6 @@ sliderBtn.addEventListener('click', function () {
   createSlider();
 });
 
-// Error function
-const somethingWong = (error) => {
-  const errorMass = document.getElementById('yo');
-  errorMass.innerText = error;
-};
 
 // enter search btn
 document.getElementById('search').addEventListener('keypress', function (event) {
@@ -161,13 +158,20 @@ document.getElementById('doration').addEventListener('keypress', function (event
 
 const togleSpinner = (show) => {
   const spinner = document.getElementById('spinner-added');
-  if (show) {
-    spinner.classList.remove('d-none');
-  } else {
-    spinner.classList.add('d-none');
+  if(show){
+    spinner.classList.remove("d-none")
   }
+  else{
+    spinner.classList.add("d-none")
+  }
+  
 };
 
 // ** Extra fiture add:
 // No 1- If i do something at search input write if it is not in my data then show something
 // NO 2 - (slider change duration input) add in Enter key
+
+
+
+
+
