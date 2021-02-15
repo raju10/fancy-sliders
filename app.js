@@ -17,7 +17,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
-  
+ 
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -38,7 +38,7 @@ const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => console.log(err))
+    .catch(err => somethingWong("somethingWong"))
 }
 
 let slideIndex = 0;
@@ -82,7 +82,8 @@ const createSlider = () => {
   const duration = document.getElementById('doration').value || 1000;
 //  negative value time canot be set 
   if(duration < 0){
-   alert("Timeing canot be negative...!! please enter your posative value !!")
+  alert("Timeing canot be negative...!! please enter your posative value !!")
+   
   }
   else{
     sliders.forEach(slide => {
@@ -145,13 +146,30 @@ sliderBtn.addEventListener('click', function () {
   createSlider()
 })
 
-// enter btn
+// Error function
+const somethingWong = (error) =>{
+  const errorMass = document.getElementById("yo")
+  errorMass.innerText = error
+ 
+}
+
+// enter search btn
 document.getElementById("search").addEventListener("keypress",function(event){
   
   if(event.key === "Enter"){
     document.getElementById("search-btn").click()
   }
 })
+
+// enter slider btn
+
+document.getElementById("doration").addEventListener("keypress",function(event){
+
+  if(event.key === "Enter"){
+    document.getElementById("create-slider").click()
+  }
+})
+
 
 
   const togleSpinner = (show)=>{
