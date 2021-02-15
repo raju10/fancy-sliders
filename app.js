@@ -80,7 +80,8 @@ const createSlider = () => {
   const duration = document.getElementById('doration').value || 1000;
   //  negative value time canot be set
   if (duration < 0) {
-    alert('Timeing canot be negative...!! please enter your posative value !!');
+    alert('Timeing canot be negative ⏰⏰...!! please enter your posative value !!');
+    
   } else {
     sliders.forEach((slide) => {
       let item = document.createElement('div');
