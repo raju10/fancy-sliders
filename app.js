@@ -167,3 +167,9 @@ const togleSpinner = (show) => {
     spinner.classList.add('d-none');
   }
 };
+
+
+
+// ** Extra fiture add:
+// No 1- If i do something at search input write if it is not in my data then show something
+// NO 2 - (slider change duration input) add in Enter key
