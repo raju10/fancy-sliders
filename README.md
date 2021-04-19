@@ -1,1 +1,2 @@
 # fancy-sliders
+some changes
